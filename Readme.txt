@@ -1,5 +1,4 @@
-Prerequisitos de softwares para rodar a aplicação:
-
+Pré-requisitos de softwares para rodar a aplicação:
 MySQL Ver 8.0.19
 Apache Maven 3.6.3
 Java version "9.0.1"
