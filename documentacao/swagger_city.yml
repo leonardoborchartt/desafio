@@ -1,0 +1,134 @@
+swagger: '2.0'
+info:
+  description: API REST of clients.
+  version: v1
+  title: City REST API
+  termsOfService: Terms of service
+  contact:
+    name: Leonardo Borchartt
+    url: 'https://www.compasso.com.br'
+    email: leonardoborchartt@compasso.com.br
+  license:
+    name: MIT
+    url: 'https://opensource.org/licenses/MIT'
+host: 'localhost:8084'
+basePath: /
+tags:
+  - name: city-controller
+    description: City Controller
+paths:
+  /api/v1/cities:
+    post:
+      tags:
+        - city-controller
+      summary: Create a new city.
+      operationId: postNewCityUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: cityDto
+          description: cityDto
+          required: true
+          schema:
+            $ref: '#/definitions/CityDto'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/CityResDto'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+  /api/v1/cities/name/{name}:
+    get:
+      tags:
+        - city-controller
+      summary: Get a city by name.
+      operationId: getCityByNameUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: name
+          in: path
+          description: name
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+        '204':
+            description: Not Found
+  '/api/v1/cities/state/{state}':
+    get:
+      tags:
+        - city-controller
+      summary: Get a state by name.
+      operationId: getByStateUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: state
+          in: path
+          description: state
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/City'
+        '204':
+          description: Not Found
+      deprecated: false
+definitions:
+  City:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      name:
+        type: string
+        example: Florianóplis
+      state:
+        type: string
+        example: Santa Catarina
+    title: City
+  CityDto:
+    type: object
+    properties:
+      name:
+        type: string
+      state:
+        type: string
+    title: CityDto
+  CityResDto:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        example: 1
+      name:
+        type: string
+        example: Florianóplis
+      state:
+        type: string
+        example: Santa Catarina
+    title: CityRespostaDto
